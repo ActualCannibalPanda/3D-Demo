@@ -1,18 +1,18 @@
 #include <format>
 #include <iostream>
 
+#define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-#include "Example.hpp"
+#include "example.hpp"
+#include "shader.hpp"
 
-#include "Shader.hpp"
-
-#define CPP_GLSL_INCLUDE
-#include "simple.frag.glsl"
-#include "simple.vert.glsl"
+// #define CPP_GLSL_INCLUDE
+#include "shaders/simple.frag.h"
+#include "shaders/simple.vert.h"
 
 constexpr int g_WindowWidth = 800;
 constexpr int g_WindowHeight = 600;
@@ -22,7 +22,7 @@ float vertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
 int main(int argc, char *argv[]) {
   std::cout << std::format("Example Game v{}.{}\n", Example_VERSION_MAJOR,
                            Example_VERSION_MINOR);
-  std::cout << simple_shader_frag_src << std::endl;
+  // std::cout << simple_shader_frag_src << std::endl;
   if (!glfwInit()) {
     std::cerr << "Failed to init GLFW\n";
     return -1;
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
 
-  Shader s{simple_shader_vert_src, simple_shader_frag_src};
+  Shader s{"shaders/simple.vert", "shader/simple.frag"};
 
   while (!glfwWindowShouldClose(window)) {
     glClearColor(0.5, 0.5, 0.5, 1.0);

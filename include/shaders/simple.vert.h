@@ -1,9 +1,8 @@
-#ifdef CPP_GLSL_INCLUDE
-std::string simple_shader_vert_src = R"(
-#endif
+#ifndef __HPP_SIMPLE_VERT_SRC__
+#define __HPP_SIMPLE_VERT_SRC__
 
-#include <simple.vert.glsl>
+const int simple_vert_src[] = 
+#include "simple.vert.c"
+;
 
-#ifdef CPP_GLSL_INCLUDE
-)";
-#endif
+#endif /* __HPP_SIMPLE_VERT_SRC__ */
