@@ -7,17 +7,19 @@
 #include <sstream>
 
 Shader::Shader(const std::string &vert_filename, const std::string &frag_filename) {
+  std::stringstream ss;
+  unsigned int vert_shader, frag_shader;
   std::ifstream vert_file(vert_filename);
+
   if (!vert_file.is_open()) {
     std::cerr << "Failed to open: " << vert_filename << std::endl;
     return;
   }
-  std::stringstream ss;
   ss << vert_file.rdbuf();
-  unsigned int vert_shader, frag_shader;
-  vert_shader = glCreateShader(GL_VERTEX_SHADER);
   auto v_code = std::string(ss.str());
   auto v_code_c = v_code.c_str();
+  
+  vert_shader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vert_shader, 1, &v_code_c, nullptr);
   glCompileShader(vert_shader);
   {
@@ -30,11 +32,16 @@ Shader::Shader(const std::string &vert_filename, const std::string &frag_filenam
                 << infoLog << std::endl;
     }
   }
-  ss.clear();
-  frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
-  ss << vert_file.rdbuf();
+  ss.str("");
+  std::ifstream frag_file(frag_filename);
+  if (!frag_file.is_open()) {
+    std::cerr << "Failed to open: " << frag_filename << std::endl;
+    return;
+  }
+  ss << frag_file.rdbuf();
   auto f_code = std::string(ss.str());
   auto f_code_c = f_code.c_str();
+  frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(frag_shader, 1, &f_code_c, nullptr);
   glCompileShader(frag_shader);
   {

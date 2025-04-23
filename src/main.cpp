@@ -50,7 +50,9 @@ int main(int argc, char *argv[]) {
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
 
-  Shader s{"shaders/simple.vert", "shader/simple.frag"};
+  Shader s{
+    "assets/shaders/simple.vert",
+    "assets/shaders/simple.frag"};
 
   while (!glfwWindowShouldClose(window)) {
     glClearColor(0.5, 0.5, 0.5, 1.0);

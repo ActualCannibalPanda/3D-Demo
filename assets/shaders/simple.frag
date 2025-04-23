@@ -1,6 +1,6 @@
 #version 450 core
 
-#pragma shader_stage(fragment)
+// #pragma shader_stage(fragment)
 
 layout(location = 0) out vec4 FragColor;
 

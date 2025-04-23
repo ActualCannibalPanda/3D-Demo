@@ -1,6 +1,6 @@
 #version 450 core
 
-#pragma shader_stage(vertex)
+// #pragma shader_stage(vertex)
 
 layout(location = 0) in vec3 aPos;
 
